@@ -1,0 +1,138 @@
+<html>
+    <head>
+    <title>Employee Data Management</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+
+        input[type=text], select, textarea {
+             width: 100%;
+             padding: 12px;
+             border: 1px solid #ccc;
+             border-radius: 4px;
+             box-sizing: border-box;
+             margin-top: 6px;
+             margin-bottom: 16px;
+             resize: vertical;
+        }
+
+        input[type=submit] {
+             background-color: #04AA6D;
+             color: white;
+             padding: 12px 20px;
+             border: none;
+             border-radius: 4px;
+             cursor: pointer;
+        }
+
+        button{
+             background-color: #45a049;
+             display: inline-block;
+             border-radius: 10px;
+             border: 4px double #cccccc;
+             color: #eeeeee;
+             text-align: center;
+             font-size: 16px;
+             padding: 20px;
+             -webkit-transition: all 0.5s;
+             -moz-transition: all 0.5s;
+             -o-transition: all 0.5s;
+             transition: all 0.5s;
+             cursor: pointer;
+             margin: 5px;
+        }
+
+        .container {
+             border-radius: 5px;
+             background-color: #f2f2f2;
+             padding: 20px;
+        }
+    </style>   
+    </head>
+        
+    <body>
+        
+        <h1>Employee Data</h1>
+        <div class="container">  
+            <label for="id">Employee ID</label>
+            <input type="text" id="id" placeholder="Employee ID">
+    
+            <label for="name">Employee Name</label>
+            <input type="text" id="name" placeholder="Employee Name">
+    
+            <label for="email">Email ID</label>
+            <input type="text" id="email" placeholder="Email ID">
+    
+            <label for="desig">Designation</label>
+            <input type="text" id="desig" placeholder="Designation">
+        </div> 
+        <div class="container">
+            <button type="button" id="insert" > INSERT</button>
+            <button type="button" id="select" > SELECT</button>
+            <button type="button" id="update" > UPDATE</button>
+            <button type="button" id="delete" > DELETE</button>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"> </script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+        <script id="MainScript">
+            var firebaseConfig = {
+                apiKey: "AIzaSyDThiNJOH1sM76k99rrQMtzmlgfIP0B7vQ",
+                authDomain: "employee-data-management-nv.firebaseapp.com",
+                databaseURL: "https://employee-data-management-nv-default-rtdb.firebaseio.com",
+                projectId: "employee-data-management-nv",
+                storageBucket: "employee-data-management-nv.appspot.com",
+                messagingSenderId: "876967030550", 
+                appId: "1:876967030550:web:92af18565b79ce24d5ea37"
+            };
+              // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            //.....Data.....//
+            var empid,name,email,desig;
+            function data(){
+                empid =document.getElementById('id').value;
+                empname =document.getElementById('name').value;
+                empemail =document.getElementById('email').value;
+                empdesig =document.getElementById('desig').value;
+            }
+            //........Insert.....//
+            document.getElementById('insert').onclick=function(){
+                data();
+                firebase.database().ref('employee/'+empid).set({
+                    EmployeeId:empid,
+                    EmployeeName:empname,
+                    EmailID:empemail,
+                    Designation:empdesig
+                });
+            }
+            //........Select.....//
+            document.getElementById('select').onclick=function(){
+                data();
+                firebase.database().ref('employee/'+empid).on('value',function(snapshot){
+                    document.getElementById('name').value=snapshot.val().EmployeeName;
+                    document.getElementById('email').value=snapshot.val().EmailID;
+                    document.getElementById('desig').value=snapshot.val().Designation;
+                });
+                            
+            }
+            //........Update.....//
+            document.getElementById('update').onclick=function(){
+                data();
+                firebase.database().ref('employee/'+empid).update({
+                    EmployeeName:empname,
+                    EmailID:empemail,
+                    Designation:empdesig
+                });
+            }
+            //........Delete.....//
+            document.getElementById('delete').onclick=function(){
+                data();
+                firebase.database().ref('employee/'+empid).remove();
+                
+            }
+                    
+        
+        </script>
+    </body>
+    
+</html>
