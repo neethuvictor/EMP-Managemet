@@ -105,10 +105,14 @@
             var empid,name,email,desig;
             function data(){
                 empid =document.getElementById('id').value;
+                if (empid.value==null){
+                    document.getElementById('msg').innerHTML='Please ener Employee ID';
+                }
+                else{
                 empname =document.getElementById('name').value;
                 empemail =document.getElementById('email').value;
                 empdesig =document.getElementById('desig').value;
-                
+                }
             }
             //........Insert.....//
             document.getElementById('insert').onclick=function(){
