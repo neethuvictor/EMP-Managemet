@@ -15,6 +15,16 @@
              margin-bottom: 16px;
              resize: vertical;
         }
+        input[type=email], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+       }
 
         input[type=submit] {
              background-color: #04AA6D;
@@ -53,15 +63,16 @@
     <body>
         
         <h1>Employee Data</h1>
+        <form id="myForm">
         <div class="container">  
             <label for="id">Employee ID</label>
-            <input type="text" id="id" placeholder="Employee ID">
+            <input type="text" id="id" placeholder="Employee ID" required>
     
             <label for="name">Employee Name</label>
             <input type="text" id="name" placeholder="Employee Name">
     
             <label for="email">Email ID</label>
-            <input type="text" id="email" placeholder="Email ID">
+            <input type="email" id="email" placeholder="Email ID">
     
             <label for="desig">Designation</label>
             <input type="text" id="desig" placeholder="Designation">
@@ -72,6 +83,7 @@
             <button type="button" id="update" > UPDATE</button>
             <button type="button" id="delete" > DELETE</button>
         </div>
+        </form>
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"> </script>
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
@@ -104,6 +116,10 @@
                     EmailID:empemail,
                     Designation:empdesig
                 });
+                document.getElementById('id').value='';
+                document.getElementById('name').value='';
+                document.getElementById('email').value='';
+                document.getElementById('desig').value='';
             }
             //........Select.....//
             document.getElementById('select').onclick=function(){
@@ -112,8 +128,7 @@
                     document.getElementById('name').value=snapshot.val().EmployeeName;
                     document.getElementById('email').value=snapshot.val().EmailID;
                     document.getElementById('desig').value=snapshot.val().Designation;
-                });
-                            
+                });            
             }
             //........Update.....//
             document.getElementById('update').onclick=function(){
@@ -123,12 +138,23 @@
                     EmailID:empemail,
                     Designation:empdesig
                 });
+                document.getElementById('id').value='';
+                document.getElementById('name').value='';
+                document.getElementById('email').value='';
+                document.getElementById('desig').value='';
             }
             //........Delete.....//
             document.getElementById('delete').onclick=function(){
                 data();
                 firebase.database().ref('employee/'+empid).remove();
+                document.getElementById('id').value='';
+                document.getElementById('name').value='';
+                document.getElementById('email').value='';
+                document.getElementById('desig').value='';
                 
+            }
+            function myFunction() {
+                document.getElementById("myForm").reset();
             }
                     
         
