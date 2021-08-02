@@ -76,6 +76,8 @@
     
             <label for="desig">Designation</label>
             <input type="text" id="desig" placeholder="Designation">
+
+            <div class="container" id="msg"></div> 
         </div> 
         <div class="container">
             <button type="button" id="insert" > INSERT</button>
@@ -106,6 +108,7 @@
                 empname =document.getElementById('name').value;
                 empemail =document.getElementById('email').value;
                 empdesig =document.getElementById('desig').value;
+                
             }
             //........Insert.....//
             document.getElementById('insert').onclick=function(){
@@ -120,6 +123,7 @@
                 document.getElementById('name').value='';
                 document.getElementById('email').value='';
                 document.getElementById('desig').value='';
+                document.getElementById('msg').innerHTML='Data Inserted';
             }
             //........Select.....//
             document.getElementById('select').onclick=function(){
@@ -128,6 +132,7 @@
                     document.getElementById('name').value=snapshot.val().EmployeeName;
                     document.getElementById('email').value=snapshot.val().EmailID;
                     document.getElementById('desig').value=snapshot.val().Designation;
+                    document.getElementById('msg').innerHTML='';
                 });            
             }
             //........Update.....//
@@ -142,6 +147,7 @@
                 document.getElementById('name').value='';
                 document.getElementById('email').value='';
                 document.getElementById('desig').value='';
+                document.getElementById('msg').innerHTML='Data Updated';
             }
             //........Delete.....//
             document.getElementById('delete').onclick=function(){
@@ -151,6 +157,7 @@
                 document.getElementById('name').value='';
                 document.getElementById('email').value='';
                 document.getElementById('desig').value='';
+                document.getElementById('msg').innerHTML='Data Deleted';
                 
             }
             function myFunction() {
